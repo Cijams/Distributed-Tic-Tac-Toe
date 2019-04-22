@@ -1,8 +1,10 @@
 import javax.swing.*;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.UnknownHostException;
+
 
 /**
  * Christopher Ijams
@@ -12,6 +14,7 @@ import java.net.UnknownHostException;
  * Game has three different modes.
  */
 public class OnlineTicTacToe {
+
     private final int INTERVAL = 1000;      // Represents 1 second.
     private final int NBUTTONS = 9;         // represents the 3x3 grid.
 
@@ -114,8 +117,87 @@ public class OnlineTicTacToe {
      */
     private OnlineTicTacToe(InetAddress addr, int port) {
         System.out.println("Filler for 2 args");
+                boolean host = false;
+                System.out.println(addr);
+                System.out.println(port);
+
+                ServerSocket server = null;
+                try {
+                    server = new ServerSocket(port);
+                    server.setSoTimeout(10000);
+                } catch (IOException e) {
+                    // Intentionally caught and allowed to continue.
+                }
+
+                Socket client = null;
+                while(true) {
+                    try {
+                        client = server.accept();
+                    } catch (Exception e) {
+
+                    }
+                    if (client != null) {
+                        host = true;
+                        System.out.println("You are a server");
+                        break;
+                    }
+
+                    try {
+                        client = new Socket(addr, port);
+                    } catch(IOException e) {
+
+                    }
+                    if (client != null) {
+                        System.out.println("You are a client");
+                        break;
+                    }
+                }
+                PrintWriter out = null;
+                BufferedReader in = null;
+                BufferedReader stdIn = null;
+                String input = "";
+                String output = "";
+                boolean turn = false;
+                try {
+                    out = new PrintWriter(client.getOutputStream(), true);
+                    in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                    stdIn = new BufferedReader(new InputStreamReader(System.in));
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
+
+                if (host) {
+                    try {
+                        while (true) {
+                            input = in.readLine();
+                            System.out.println(input);
+                            output = stdIn.readLine();
+                            out.println(output);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+
+                else {
+                    try {
+                        while (true) {
+                            output = stdIn.readLine();
+                            out.println(output);
+                            input = in.readLine();
+                            System.out.println(input);
+                        }
+                    } catch (Exception e) { System.out.println(e); }
+                }
+            }
+        }
+
+
+
+
+
         // Set up a TCP connection with my counterpart
         // set up a window
         // start counterpart thread
-    }
-}
+
+

@@ -3,6 +3,7 @@ import java.io.*;
 
 public class EchoCS {
     EchoCS(InetAddress addr, int port) {
+        boolean host = false;
         System.out.println(addr);
         System.out.println(port);
 
@@ -22,6 +23,7 @@ public class EchoCS {
 
             }
             if (client != null) {
+                host = true;
                 System.out.println("You are a server");
                 break;
             }
@@ -35,30 +37,44 @@ public class EchoCS {
                 System.out.println("You are a client");
                 break;
             }
-
+        }
+        PrintWriter out = null;
+        BufferedReader in = null;
+        BufferedReader stdIn = null;
+        String input = "";
+        String output = "";
+        boolean turn = false;
+        try {
+            out = new PrintWriter(client.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+        } catch (Exception e) {
+            System.err.println(e);
         }
 
-
-
-        try (
-                PrintWriter out =
-                        new PrintWriter(client.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(client.getInputStream()));
-        ) {
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                out.println(inputLine);
+        if (host) {
+            try {
+                while (true) {
+                    input = in.readLine();
+                    System.out.println(input);
+                    output = stdIn.readLine();
+                    out.println(output);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
             }
-        } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                    + port + " or listening for a connection");
-            System.out.println(e.getMessage());
         }
 
-
-
-
+        else {
+            try {
+                while (true) {
+                    output = stdIn.readLine();
+                    out.println(output);
+                    input = in.readLine();
+                    System.out.println(input);
+                }
+            } catch (Exception e) { System.out.println(e); }
+        }
     }
 
     public static void main(String[] args) {
