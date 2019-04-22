@@ -1,5 +1,9 @@
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -201,16 +205,33 @@ public class OnlineTicTacToe {
         for (int i = 0; i < NBUTTONS; i++) {
             button[i] = new JButton();
             window.add(button[i]);
-            //   button[i].addActionListener(this);
+            button[i].addActionListener(l);
         }
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        if (host) {
+        if (host)
             window.setLocation(d.width/2-window.getSize().width/2, d.height/2-window.getSize().height/2);
-        }
-        else {
+        else
             window.setLocation((d.width/2-window.getSize().width/2)-500, d.height/2-window.getSize().height/2);
-        }
         window.setAlwaysOnTop (true);
         window.setVisible(true);
+    }
+
+    private ActionListener l = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int i = whichButtonClicked(e);
+            if (host)
+                button[i].setText("X");
+            else
+                button[i].setText("O");
+        }
+    };
+
+    private int whichButtonClicked( ActionEvent event ) {
+        for ( int i = 0; i < NBUTTONS; i++ ) {
+            if ( event.getSource( ) == button[i] )
+                return i;
+        }
+        return -1;
     }
 }
