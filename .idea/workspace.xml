@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb3f98c9-1789-4141-a3b4-1c80ed8abcc4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OnlineTicTacToe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OnlineTicTacToe.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -23,8 +21,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="395">
-                  <caret line="186" column="54" lean-forward="true" selection-start-line="186" selection-start-column="54" selection-end-line="186" selection-end-column="54" />
+                <state relative-caret-position="279">
+                  <caret line="171" column="27" lean-forward="true" selection-start-line="164" selection-start-column="6" selection-end-line="164" selection-end-column="7" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -207,6 +205,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="306" y="239" width="2851" height="1010" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.14073496" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -217,7 +216,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.327252" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.327252" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39939332" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -282,8 +281,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="186" column="54" lean-forward="true" selection-start-line="186" selection-start-column="54" selection-end-line="186" selection-end-column="54" />
+        <state relative-caret-position="279">
+          <caret line="171" column="27" lean-forward="true" selection-start-line="164" selection-start-column="6" selection-end-line="164" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

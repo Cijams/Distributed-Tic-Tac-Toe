@@ -26,6 +26,8 @@ public class OnlineTicTacToe {
     private ObjectInputStream input;        // input from counterpart.
     private ObjectOutputStream output;      // output from counterpart.
 
+    private PrintWriter out = null;
+
     private static String myMark;           // "O" or "X".
     private static String yourMark;         // "X" or "O".
 
@@ -154,7 +156,6 @@ public class OnlineTicTacToe {
                     }
                 }
                 makeWindow(host);
-                PrintWriter out = null;
                 BufferedReader in = null;
                 BufferedReader stdIn = null;
                 String input = "";
@@ -172,9 +173,10 @@ public class OnlineTicTacToe {
                     try {
                         while (true) {
                             input = in.readLine();
-                            System.out.println(input);
-                            output = stdIn.readLine();
-                            out.println(output);
+                            button[Integer.parseInt(input)].setText("O");
+                            // button at number INPUT = "X"
+                            //output = stdIn.readLine();
+                            //out.println(output);
                         }
                     } catch (Exception e) {
                         System.out.println(e);
@@ -184,10 +186,10 @@ public class OnlineTicTacToe {
                 else {
                     try {
                         while (true) {
-                            output = stdIn.readLine();
-                            out.println(output);
+                            //output = stdIn.readLine();
+                            //out.println(output);
                             input = in.readLine();
-                            System.out.println(input);
+                            button[Integer.parseInt(input)].setText("X");
                         }
                     } catch (Exception e) { System.out.println(e); }
                 }
@@ -220,10 +222,14 @@ public class OnlineTicTacToe {
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = whichButtonClicked(e);
-            if (host)
+            if (host) {
                 button[i].setText("X");
-            else
+                out.println(i);
+            }
+            else {
                 button[i].setText("O");
+                out.println(i);
+            }
         }
     };
 
