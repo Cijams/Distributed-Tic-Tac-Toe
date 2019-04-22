@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -27,7 +28,8 @@ public class OnlineTicTacToe {
     private JFrame window;                  // The tic-tac-toe window.
     private JButton[] button
             = new JButton[NBUTTONS];        // buttons[0] - buttons[9].
-    private boolean myTurn;                  // T: My turn, F: your turn.
+    private boolean[] myTurn = new boolean[1]; // T: My turn, F: your turn.
+    private boolean host = false;
 
 
 
@@ -116,11 +118,6 @@ public class OnlineTicTacToe {
      * @param port
      */
     private OnlineTicTacToe(InetAddress addr, int port) {
-        System.out.println("Filler for 2 args");
-                boolean host = false;
-                System.out.println(addr);
-                System.out.println(port);
-
                 ServerSocket server = null;
                 try {
                     server = new ServerSocket(port);
@@ -133,7 +130,7 @@ public class OnlineTicTacToe {
                 while(true) {
                     try {
                         client = server.accept();
-                    } catch (Exception e) {
+                    } catch (NullPointerException | IOException e) {
 
                     }
                     if (client != null) {
@@ -152,6 +149,7 @@ public class OnlineTicTacToe {
                         break;
                     }
                 }
+                makeWindow(host);
                 PrintWriter out = null;
                 BufferedReader in = null;
                 BufferedReader stdIn = null;
@@ -190,14 +188,29 @@ public class OnlineTicTacToe {
                     } catch (Exception e) { System.out.println(e); }
                 }
             }
+
+    private void makeWindow( boolean host) {
+        myMark = (host) ? "O" : "X"; // 1st person uses "O"
+        yourMark = (host) ? "X" : "O"; // 2nd person uses "X"
+        window = new JFrame("OnlineTicTacToe(" +
+                ((host) ? "former)" : "latter)") + myMark);
+        window.setSize(300, 300);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setLayout(new GridLayout(3, 3));
+
+        for (int i = 0; i < NBUTTONS; i++) {
+            button[i] = new JButton();
+            window.add(button[i]);
+            //   button[i].addActionListener(this);
         }
-
-
-
-
-
-        // Set up a TCP connection with my counterpart
-        // set up a window
-        // start counterpart thread
-
-
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        if (host) {
+            window.setLocation(d.width/2-window.getSize().width/2, d.height/2-window.getSize().height/2);
+        }
+        else {
+            window.setLocation((d.width/2-window.getSize().width/2)-500, d.height/2-window.getSize().height/2);
+        }
+        window.setAlwaysOnTop (true);
+        window.setVisible(true);
+    }
+}

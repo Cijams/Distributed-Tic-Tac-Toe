@@ -147,6 +147,7 @@ public class OnlineTicTacToe implements ActionListener {
         Counterpart counterpart = new Counterpart( );
         counterpart.start();
     }
+
     /**
      * Is the constructor that sets up a TCP connection with my counterpart,
      * brings up a game window, and starts a slave thread for listenning to
