@@ -50,7 +50,7 @@ public class Connection {
 	    // set up a pair of ObjectInputStream and ObjectOutputStream.
 	    out = new ObjectOutputStream( channel.getOutputStream( ) );
 	    out.flush( );
-	    in = new ObjectInputStream( channel.getInputStream( ) );
+	    //in = new ObjectInputStream( channel.getInputStream( ) );
 	} catch( Exception e ) {
 	    System.err.println( "upon a ssh2 connection to " + hostname );
 	    e.printStackTrace( );
@@ -92,30 +92,30 @@ public class Connection {
      * used in libssh to establish a secured TCP connection from a user-local 
      * to a remote machine.
      */
-    private class MyUserInfo implements UserInfo {
-	// Private data members
-	private String _passwd = null; // Users password
-	
-	// Constructor sets up password
-	public MyUserInfo( String passwd )
-	{
-	    this._passwd = passwd;
-	}
-	
-	// Because passphrase does not apply use null
-	public String getPassphrase( ) { return null; }
+	private class MyUserInfo implements UserInfo {
+		// Private data members
+		private String _passwd = null; // Users password
+
+		// Constructor sets up password
+		public MyUserInfo( String passwd )
+		{
+			this._passwd = passwd;
+		}
+
+		// Because passphrase does not apply use null
+		public String getPassphrase( ) { return null; }
 
 		// Returns the password of the user
-	public String getPassword( ) { return _passwd; }
+		public String getPassword( ) { return _passwd; }
 
 		// You may only set password during construction of UserInfo
-	public boolean promptPassword( String Message ) { return true; }
+		public boolean promptPassword( String Message ) { return true; }
 
 		// Because passphrase does not apply this function simply returns true
-	public boolean promptPassphrase( String message ) { return true; }
+		public boolean promptPassphrase( String message ) { return true; }
 
 		// Because this application runs remotely, no need to prompt the user
-	public boolean promptYesNo( String message ) { return true; }
+		public boolean promptYesNo( String message ) { return true; }
 
 		public void showMessage( String message ) { }
 	}
