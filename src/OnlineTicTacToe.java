@@ -1,5 +1,3 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +14,7 @@ import java.net.UnknownHostException;
  * 2019/4/20
  * Online Tic-Tac-Toe game.
  *
- * Game has three different modes.
+ * Game has CheckIfWin different modes.
  */
 public class OnlineTicTacToe {
 
@@ -36,6 +34,7 @@ public class OnlineTicTacToe {
             = new JButton[NBUTTONS];        // buttons[0] - buttons[9].
     private boolean[] myTurn = new boolean[1]; // T: My turn, F: your turn.
     private boolean host = false;
+    private boolean p1turn = true;
 
 
 
@@ -142,6 +141,7 @@ public class OnlineTicTacToe {
                     if (client != null) {
                         host = true;
                         System.out.println("You are a server");
+                        p1turn = false;
                         break;
                     }
 
@@ -152,6 +152,7 @@ public class OnlineTicTacToe {
                     }
                     if (client != null) {
                         System.out.println("You are a client");
+                        p1turn = true;
                         break;
                     }
                 }
@@ -170,26 +171,23 @@ public class OnlineTicTacToe {
                 }
 
                 if (host) {
-                    try {
-                        while (true) {
-                            input = in.readLine();
-                            button[Integer.parseInt(input)].setText("O");
-                            // button at number INPUT = "X"
-                            //output = stdIn.readLine();
-                            //out.println(output);
+
+                        try {
+                            new Thread(new checkWinCondition()).start();
+                            while (true) {
+                                input = in.readLine();
+                                button[Integer.parseInt(input)].setText("O");
                         }
                     } catch (Exception e) {
                         System.out.println(e);
                     }
                 }
-
                 else {
-                    try {
-                        while (true) {
-                            //output = stdIn.readLine();
-                            //out.println(output);
-                            input = in.readLine();
-                            button[Integer.parseInt(input)].setText("X");
+                        try {
+                            new Thread(new checkWinCondition()).start();
+                            while (true) {
+                                input = in.readLine();
+                                button[Integer.parseInt(input)].setText("X");
                         }
                     } catch (Exception e) { System.out.println(e); }
                 }
@@ -199,7 +197,7 @@ public class OnlineTicTacToe {
         myMark = (host) ? "O" : "X"; // 1st person uses "O"
         yourMark = (host) ? "X" : "O"; // 2nd person uses "X"
         window = new JFrame("OnlineTicTacToe(" +
-                ((host) ? "former)" : "latter)") + myMark);
+                ((host) ? "server)" : "client)") + myMark);
         window.setSize(300, 300);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new GridLayout(3, 3));
@@ -222,22 +220,98 @@ public class OnlineTicTacToe {
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = whichButtonClicked(e);
-            if (host) {
-                button[i].setText("X");
-                out.println(i);
-            }
-            else {
-                button[i].setText("O");
-                out.println(i);
+
+                if (host) {
+                    if (button[i].getText() != "O") {
+                        button[i].setText("X");
+                        out.println(i);
+                    }
+                }
+            else  {
+                if (button[i].getText() != "X") {
+                    button[i].setText("O");
+                    out.println(i);
+                }
             }
         }
     };
 
-    private int whichButtonClicked( ActionEvent event ) {
-        for ( int i = 0; i < NBUTTONS; i++ ) {
-            if ( event.getSource( ) == button[i] )
+    private int whichButtonClicked(ActionEvent e) {
+        for (int i = 0; i < NBUTTONS; i++) {
+            if (e.getSource() == button[i])
                 return i;
         }
         return -1;
+    }
+
+    private void showWon(String mark) {
+        JOptionPane.showMessageDialog(window, mark + " Won!");
+        System.exit(0);
+    }
+
+    private class checkWinCondition implements Runnable {
+        String oWinCondition = "OOO";
+        String xWinCondition = "XXX";
+        boolean oWinner = false;
+        boolean xWinner = false;
+        String CheckIfWin = "";
+        boolean gameOver = false;
+
+        @Override
+        public void run() {
+            try {
+                while(true) {
+                    Thread.sleep(500);
+                    checkWin();
+                    if (gameOver)
+                        break;
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+
+        private void checkWin() {
+            // rows
+            for(int i = 0; i < 9;) {
+                CheckIfWin = "";
+                CheckIfWin = button[i].getText()+button[i+1].getText()+button[i+2].getText();
+                if (CheckIfWin.equals(oWinCondition))
+                    oWinner = true;
+                if (CheckIfWin.equals(xWinCondition))
+                    xWinner = true;
+                i += 3;
+            }
+            // cols
+            for(int i = 0; i < 3; i++) {
+                CheckIfWin = "";
+                CheckIfWin = button[i].getText()+button[i+3].getText()+button[i+6].getText();
+                if (CheckIfWin.equals(oWinCondition))
+                    oWinner = true;
+                if (CheckIfWin.equals(xWinCondition))
+                    xWinner = true;
+            }
+            // diagonal
+            CheckIfWin = button[0].getText()+button[4].getText()+button[8].getText();
+            if (CheckIfWin.equals(oWinCondition))
+                oWinner = true;
+            if (CheckIfWin.equals(xWinCondition))
+                xWinner = true;
+            // diagonal
+            CheckIfWin = button[2].getText()+button[4].getText()+button[6].getText();
+            if (CheckIfWin.equals(oWinCondition))
+                oWinner = true;
+            if (CheckIfWin.equals(xWinCondition))
+                xWinner = true;
+
+            if (xWinner){
+                showWon("X");
+                gameOver = true;
+            }
+            if (oWinner){
+                showWon("O");
+                gameOver = true;
+            }
+        }
     }
 }
