@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb3f98c9-1789-4141-a3b4-1c80ed8abcc4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Chris.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe$checkWinCondition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe$checkWinCondition.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OnlineTicTacToe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OnlineTicTacToe.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,16 +18,20 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.59599674">
+    <splitter split-orientation="horizontal" split-proportion="0.35973084">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="423">
-                  <caret line="178" column="26" lean-forward="true" selection-start-line="178" selection-start-column="26" selection-end-line="178" selection-end-column="26" />
+                <state relative-caret-position="-381">
+                  <caret line="135" column="45" selection-start-line="135" selection-start-column="45" selection-end-line="135" selection-end-column="45" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="e#2756#2757#0" expanded="true" />
+                    <element signature="e#2809#2810#0" expanded="true" />
+                    <element signature="e#10430#10431#0" expanded="true" />
+                    <element signature="e#10463#10464#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -39,8 +40,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Connection.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="21" selection-start-line="21" selection-end-line="21" />
+                <state relative-caret-position="-875">
+                  <caret line="43" column="8" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -55,8 +56,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ServerCodeExamples/text">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="232" column="5" lean-forward="true" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
+                <state relative-caret-position="-321">
+                  <caret line="138" column="33" selection-start-line="138" selection-start-column="33" selection-end-line="138" selection-end-column="33" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#8416#8417#0" expanded="true" />
@@ -105,10 +106,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="820" />
-    <option name="y" value="24" />
-    <option name="width" value="2308" />
-    <option name="height" value="1273" />
+    <option name="x" value="-7" />
+    <option name="width" value="1734" />
+    <option name="height" value="1447" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -186,7 +186,7 @@
     <configuration name="OnlineTicTacToe" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="OnlineTicTacToe" />
       <module name="Distributed-Tic-Tac-Toe" />
-      <option name="PROGRAM_PARAMETERS" value="localhost 54321" />
+      <option name="PROGRAM_PARAMETERS" value="localhost 54321 auto" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -216,10 +216,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="74" y="161" width="2308" height="1273" extended-state="0" />
+    <frame x="-7" y="0" width="1734" height="1447" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.14073496" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18876942" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -228,7 +228,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32982457" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29385966" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33105022" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39939332" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -271,10 +271,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_73/src.zip!/java/lang/Runnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Connection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="-875">
+          <caret line="43" column="8" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -283,8 +290,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ServerCodeExamples/text">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="232" column="5" lean-forward="true" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
+        <state relative-caret-position="-321">
+          <caret line="138" column="33" selection-start-line="138" selection-start-column="33" selection-end-line="138" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8416#8417#0" expanded="true" />
@@ -293,19 +300,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_73/src.zip!/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="178" column="26" lean-forward="true" selection-start-line="178" selection-start-column="26" selection-end-line="178" selection-end-column="26" />
+        <state relative-caret-position="-381">
+          <caret line="135" column="45" selection-start-line="135" selection-start-column="45" selection-end-line="135" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2756#2757#0" expanded="true" />
+            <element signature="e#2809#2810#0" expanded="true" />
+            <element signature="e#10430#10431#0" expanded="true" />
+            <element signature="e#10463#10464#0" expanded="true" />
           </folding>
         </state>
       </provider>

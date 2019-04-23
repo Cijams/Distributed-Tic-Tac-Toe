@@ -1,20 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 
 /**
  * Christopher Ijams
  * 2019/4/20
  * Online Tic-Tac-Toe game.
- * <p>
- * Game has CheckIfWin different modes.
+ *
+ * Game has three different modes.
  */
 public class OnlineTicTacToe {
 
@@ -111,10 +111,51 @@ public class OnlineTicTacToe {
     /**
      * TODO This method implements autoplay.
      *
-     * @param arg
+     * @param
      */
-    private OnlineTicTacToe(String arg) {
+    public OnlineTicTacToe(String hostname) {
+        final int JschPort = 22;
+        Scanner keyboard = new Scanner( System.in );
+        String username = null;
+        String password = null;
+        String cur_dir = System.getProperty( "user.dir" );
 
+        System.out.println("Enter your user name password " +
+                "separated by spaces");
+        try {
+            String[] info = keyboard.nextLine().split(" ");
+            username = info[0];
+            password = info[1];
+        } catch (Exception e) {
+            error(e);
+        }
+        String command
+                = "java -cp " + cur_dir + "/jsch-0.1.54.jar:" + cur_dir +
+                " cssmpi2";
+
+        /* USE THIS CODE TO REPLACE THE OTHER
+        Connection connection = new Connection( username, password,
+                hostname, "command" );
+
+        input = connection.in;
+        output = connection.out;
+        */
+        input = null;
+        String bot_move;
+
+        makeWindow();
+        Counterpart counterpart = new Counterpart( );
+        counterpart.start();
+
+        try {
+            new Thread(new checkWinCondition()).start();
+            while (true) {
+                bot_move = keyboard.nextLine(); // CHANGE TO [[input = connection.in;]]
+                button[Integer.parseInt(bot_move)].setText("X");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -232,7 +273,7 @@ public class OnlineTicTacToe {
                 } else {
                     if (!button[j].getText().equals("X")) {
                         button[j].setText("O");
-                        out.println(j);
+                       // out.println(j);
                     }
                 }
             });
@@ -297,6 +338,20 @@ public class OnlineTicTacToe {
                 showWon("X");
             if (CheckIfWin.equals("OOO"))
                 showWon("O");
+        }
+    }
+    private class Counterpart extends Thread {
+        Counterpart() {
+            try {
+                BufferedWriter log = new BufferedWriter(new FileWriter("log.txt"));
+            } catch (Exception e) {
+                error(e);
+            }
+        }
+
+        @Override
+        public void run( ) {
+            button[8].setText("X");
         }
     }
 }
