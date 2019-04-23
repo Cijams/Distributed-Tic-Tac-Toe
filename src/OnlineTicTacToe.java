@@ -273,7 +273,7 @@ public class OnlineTicTacToe {
                 } else {
                     if (!button[j].getText().equals("X")) {
                         button[j].setText("O");
-                       // out.println(j);
+                        out.println(j);
                     }
                 }
             });
