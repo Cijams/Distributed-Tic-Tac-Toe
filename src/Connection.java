@@ -103,15 +103,20 @@ public class Connection {
 	}
 	
 	// Because passphrase does not apply use null
-	public String getPassphrase( ) { return null; };
-	// Returns the password of the user
-	public String getPassword( ) { return _passwd; };
-	// You may only set password during construction of UserInfo
-	public boolean promptPassword( String Message ) { return true; };
-	// Because passphrase does not apply this function simply returns true
-	public boolean promptPassphrase( String message ) { return true; };
-	// Because this application runs remotely, no need to prompt the user
-	public boolean promptYesNo( String message ) { return true; };
-	public void showMessage( String message ) { };
-    }
+	public String getPassphrase( ) { return null; }
+
+		// Returns the password of the user
+	public String getPassword( ) { return _passwd; }
+
+		// You may only set password during construction of UserInfo
+	public boolean promptPassword( String Message ) { return true; }
+
+		// Because passphrase does not apply this function simply returns true
+	public boolean promptPassphrase( String message ) { return true; }
+
+		// Because this application runs remotely, no need to prompt the user
+	public boolean promptYesNo( String message ) { return true; }
+
+		public void showMessage( String message ) { }
+	}
 }

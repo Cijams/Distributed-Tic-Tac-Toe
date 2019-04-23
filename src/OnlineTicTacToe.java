@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
  * Christopher Ijams
  * 2019/4/20
  * Online Tic-Tac-Toe game.
- *
+ * <p>
  * Game has CheckIfWin different modes.
  */
 public class OnlineTicTacToe {
@@ -37,10 +37,10 @@ public class OnlineTicTacToe {
     private boolean p1turn = true;
 
 
-
     /**
      * Prints the output of the stack trace upon a given error
      * and quits the application.
+     *
      * @param e an exception.
      */
     private static void error(Exception e) {
@@ -72,8 +72,9 @@ public class OnlineTicTacToe {
      * param args[0]: Counterpart's IP address.
      * param args[1]: Counterpart's Port.
      * param arts[2]: If "auto", bot controlled Counterpart. Else ignored.
-     *
+     * <p>
      * If args.length == 0, program is remotely launched by JSCH.
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -109,6 +110,7 @@ public class OnlineTicTacToe {
 
     /**
      * TODO This method implements autoplay.
+     *
      * @param arg
      */
     private OnlineTicTacToe(String arg) {
@@ -116,125 +118,126 @@ public class OnlineTicTacToe {
     }
 
     /**
-     *
      * TODO This method is the two player impl. Local or server for addr
      *
      * @param addr
      * @param port
      */
     private OnlineTicTacToe(InetAddress addr, int port) {
-                ServerSocket server = null;
-                try {
-                    server = new ServerSocket(port);
-                    server.setSoTimeout(10000);
-                } catch (IOException e) {
-                    // Intentionally caught and allowed to continue.
-                }
-
-                Socket client = null;
-                while(true) {
-                    try {
-                        client = server.accept();
-                    } catch (NullPointerException | IOException e) {
-
-                    }
-                    if (client != null) {
-                        host = true;
-                        System.out.println("You are a server");
-                        p1turn = false;
-                        break;
-                    }
-
-                    try {
-                        client = new Socket(addr, port);
-                    } catch(IOException e) {
-
-                    }
-                    if (client != null) {
-                        System.out.println("You are a client");
-                        p1turn = true;
-                        break;
-                    }
-                }
-                makeWindow(host);
-                BufferedReader in = null;
-                BufferedReader stdIn = null;
-                String input = "";
-                String output = "";
-                boolean turn = false;
-                try {
-                    out = new PrintWriter(client.getOutputStream(), true);
-                    in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    stdIn = new BufferedReader(new InputStreamReader(System.in));
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-
-                if (host) {
-
-                        try {
-                            new Thread(new checkWinCondition()).start();
-                            while (true) {
-                                input = in.readLine();
-                                button[Integer.parseInt(input)].setText("O");
-                        }
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                }
-                else {
-                        try {
-                            new Thread(new checkWinCondition()).start();
-                            while (true) {
-                                input = in.readLine();
-                                button[Integer.parseInt(input)].setText("X");
-                        }
-                    } catch (Exception e) { System.out.println(e); }
-                }
+        ServerSocket server = null;
+        Socket client = null;
+        try {
+            server = new ServerSocket(port);
+            server.setSoTimeout(10000);
+        } catch (IOException e) {
+            // Intentionally caught and allowed to continue.
+        }
+        while (true) {
+            try {
+                client = server.accept();
+            } catch (NullPointerException | IOException e) {
             }
 
-    private void makeWindow( boolean host) {
-        myMark = (host) ? "O" : "X"; // 1st person uses "O"
-        yourMark = (host) ? "X" : "O"; // 2nd person uses "X"
+            if (client != null) {
+                host = true;
+                p1turn = false;
+                break;
+            }
+
+            try {
+                client = new Socket(addr, port);
+            } catch (IOException e) {
+                error(e);
+            }
+            if (client != null) {
+                System.out.println("You are a client");
+                p1turn = true;
+                break;
+            }
+        }
+        makeWindow();
+        BufferedReader in = null;
+        String input;
+
+        try {
+            out = new PrintWriter(client.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+        if (host) {
+            try {
+                new Thread(new checkWinCondition()).start();
+                while (true) {
+                    input = in.readLine();
+                    button[Integer.parseInt(input)].setText("O");
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
+            try {
+                new Thread(new checkWinCondition()).start();
+                while (true) {
+                    input = in.readLine();
+                    button[Integer.parseInt(input)].setText("X");
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    private void makeWindow() {
+        initBar();
+        initButtons();
+        initWindow();
+    }
+
+    private void initBar() {
+        myMark = (host) ? "O" : "X";        // 1st person uses "O"
+        yourMark = (host) ? "X" : "O";      // 2nd person uses "X"
         window = new JFrame("OnlineTicTacToe(" +
                 ((host) ? "server)" : "client)") + myMark);
+    }
+
+    private void initWindow() {
         window.setSize(300, 300);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new GridLayout(3, 3));
+        window.setAlwaysOnTop(true);
+        window.setVisible(true);
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 
+        if (host)
+            window.setLocation(d.width / 2 - window.getSize().width / 2,
+                    d.height / 2 - window.getSize().height / 2);
+        else
+            window.setLocation((d.width / 2 - window.getSize().width / 2) - 500,
+                    d.height / 2 - window.getSize().height / 2);
+    }
+
+    private void initButtons() {
         for (int i = 0; i < NBUTTONS; i++) {
             button[i] = new JButton();
             window.add(button[i]);
-            button[i].addActionListener(l);
-        }
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        if (host)
-            window.setLocation(d.width/2-window.getSize().width/2, d.height/2-window.getSize().height/2);
-        else
-            window.setLocation((d.width/2-window.getSize().width/2)-500, d.height/2-window.getSize().height/2);
-        window.setAlwaysOnTop (true);
-        window.setVisible(true);
-    }
-
-    private ActionListener l = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int i = whichButtonClicked(e);
-
+            button[i].addActionListener(e -> {
+                int j = whichButtonClicked(e);
                 if (host) {
-                    if (button[i].getText() != "O") {
-                        button[i].setText("X");
-                        out.println(i);
+                    if (!button[j].getText().equals("O")) {
+                        button[j].setText("X");
+                        out.println(j);
+                    }
+                } else {
+                    if (!button[j].getText().equals("X")) {
+                        button[j].setText("O");
+                        out.println(j);
                     }
                 }
-            else  {
-                if (button[i].getText() != "X") {
-                    button[i].setText("O");
-                    out.println(i);
-                }
-            }
+            });
         }
-    };
+    }
 
     private int whichButtonClicked(ActionEvent e) {
         for (int i = 0; i < NBUTTONS; i++) {
@@ -250,68 +253,50 @@ public class OnlineTicTacToe {
     }
 
     private class checkWinCondition implements Runnable {
-        String oWinCondition = "OOO";
-        String xWinCondition = "XXX";
-        boolean oWinner = false;
-        boolean xWinner = false;
-        String CheckIfWin = "";
+        String checkIfWin = "";
         boolean gameOver = false;
 
         @Override
         public void run() {
             try {
-                while(true) {
+                while (true) {
                     Thread.sleep(500);
                     checkWin();
                     if (gameOver)
                         break;
                 }
             } catch (Exception e) {
-                System.err.println(e);
+                error(e);
             }
         }
 
         private void checkWin() {
             // rows
-            for(int i = 0; i < 9;) {
-                CheckIfWin = "";
-                CheckIfWin = button[i].getText()+button[i+1].getText()+button[i+2].getText();
-                if (CheckIfWin.equals(oWinCondition))
-                    oWinner = true;
-                if (CheckIfWin.equals(xWinCondition))
-                    xWinner = true;
+            for (int i = 0; i < 9; ) {
+                checkIfWin = "";
+                checkIfWin = button[i].getText() + button[i + 1].getText() + button[i + 2].getText();
+                test(checkIfWin);
                 i += 3;
             }
             // cols
-            for(int i = 0; i < 3; i++) {
-                CheckIfWin = "";
-                CheckIfWin = button[i].getText()+button[i+3].getText()+button[i+6].getText();
-                if (CheckIfWin.equals(oWinCondition))
-                    oWinner = true;
-                if (CheckIfWin.equals(xWinCondition))
-                    xWinner = true;
+            for (int i = 0; i < 3; i++) {
+                checkIfWin = "";
+                checkIfWin = button[i].getText() + button[i + 3].getText() + button[i + 6].getText();
+                test(checkIfWin);
             }
-            // diagonal
-            CheckIfWin = button[0].getText()+button[4].getText()+button[8].getText();
-            if (CheckIfWin.equals(oWinCondition))
-                oWinner = true;
-            if (CheckIfWin.equals(xWinCondition))
-                xWinner = true;
-            // diagonal
-            CheckIfWin = button[2].getText()+button[4].getText()+button[6].getText();
-            if (CheckIfWin.equals(oWinCondition))
-                oWinner = true;
-            if (CheckIfWin.equals(xWinCondition))
-                xWinner = true;
 
-            if (xWinner){
+            // diagonals
+            checkIfWin = button[0].getText() + button[4].getText() + button[8].getText();
+            test(checkIfWin);
+            checkIfWin = button[2].getText() + button[4].getText() + button[6].getText();
+            test(checkIfWin);
+        }
+
+        private void test(String CheckIfWin) {
+            if (CheckIfWin.equals("XXX"))
                 showWon("X");
-                gameOver = true;
-            }
-            if (oWinner){
+            if (CheckIfWin.equals("OOO"))
                 showWon("O");
-                gameOver = true;
-            }
         }
     }
 }
