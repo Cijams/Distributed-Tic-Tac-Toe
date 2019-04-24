@@ -1,6 +1,3 @@
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,9 +6,6 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Random;
-import java.util.Scanner;
-
 
 /**
  * Christopher Ijams
@@ -19,11 +13,11 @@ import java.util.Scanner;
  * Online Tic-Tac-Toe game.
  *
  * This is an online Internet program that involves two users in the same tic-tac-toe game.
- * The program also allows a single user to play with an automated remote user.
+ * The users can either play locally or remotely across different servers.
  */
 public class OnlineTicTacToe {
 
-    private final int INTERVAL = 1000;          // Represents 1 second.
+    private final int INTERVAL = 10000;          // Represents 1 second.
     private final int NBUTTONS = 9;             // represents the 3x3 grid.
 
     private ObjectInputStream input;            // input from counterpart.
@@ -40,18 +34,6 @@ public class OnlineTicTacToe {
     private boolean[] myTurn = new boolean[1];  // T: My turn, F: your turn.
     private boolean host = false;               // Assists in determining who starts
     private boolean p1turn;                     // Assists in keeping track of player turn.
-
-    /**
-     * Prints the output of the stack trace upon a given error
-     * and quits the application.
-     *
-     * @param e an exception.
-     */
-    private static void error(Exception e) {
-        e.printStackTrace();
-        System.exit(-1);
-    }
-
     /**
      * Instructs the user on how to invoke the program.
      */
@@ -63,29 +45,15 @@ public class OnlineTicTacToe {
     }
 
     /**
-     * Enforces proper usage of the program.
-     */
-    private static void check_usage(String[] args) {
-        if (args.length != 0 && args.length != 2 && args.length != 3)
-            usage();
-    }
-
-    /**
      * Starts the online tic-tac-toe game.
      * param args[0]: Counterpart's IP address.
      * param args[1]: Counterpart's Port.
-     * param arts[2]: If "auto", bot controlled Counterpart. Else ignored.
-     *
-     * If args.length == 0, program is remotely launched by JSCH.
      *
      * @param args
      */
     public static void main(String[] args) {
-        check_usage(args);
-
-        if (args.length == 0) {
-            new OnlineTicTacToe();
-        }
+        if (args.length != 2)
+            usage();
 
         InetAddress addr = null;
         int port = 0;
@@ -95,70 +63,10 @@ public class OnlineTicTacToe {
         } catch (UnknownHostException | NumberFormatException e) {
             error(e);
         }
-
         if (args.length == 2) {
             new OnlineTicTacToe(addr, port);
         }
-        if (args.length == 3 && args[2].equals("auto")) {
-            new OnlineTicTacToe(args[0]);
-        }
     }
-
-    /**
-     *  Single player automated version of the game. Called by JSCH.
-     */
-    private OnlineTicTacToe() {
-        try {
-            Connection connection = new Connection();
-            input = connection.in;
-            output = connection.out;
-            PrintWriter logs =
-                    new PrintWriter(new FileOutputStream("logs.txt"));
-            logs.println("Auto-play: got started.");
-            logs.flush();
-            myMark = "X";
-            yourMark = "O";
-
-            Counterpart counterpart = new Counterpart( );
-            counterpart.start();
-        } catch (Exception e) {
-            error(e);
-        }
-    }
-
-    /**
-     * Single player version of the game. Called by the three arg constructor.
-     * Initiates the connection to the remote server and starts local
-     * player side logic.
-     *
-     * @param
-     */
-    public OnlineTicTacToe(String hostname) {
-
-        final int JschPort = 22;
-        Scanner keyboard = new Scanner( System.in );
-        String username = null;
-        String password = null;
-
-        System.out.println("Enter your user-name and password separated by spaces");
-        String info[] = keyboard.nextLine().split(" ");
-        username = info[0];
-        password = info[1];
-        String command = "java OnlineTicTacToe";
-
-        Connection connection = new Connection(username, password,
-                hostname, command);
-
-        initWindow();
-
-        // Local win condition checker.
-        try {
-            new Thread(new checkWinCondition()).start();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     /**
      * Two player version of the game. Non-blocking attempt to create a server.
      * Peer to peer, program does no care which instance is the server and which
@@ -166,8 +74,8 @@ public class OnlineTicTacToe {
      * with each other. The first player to get all in a row, column, or
      * diagonally wins the game.
      *
-     * @param addr
-     * @param port
+     * @param addr The public address of the opponent. [I.P. address or localhost]
+     * @param port The port number to bind to.
      */
     private OnlineTicTacToe(InetAddress addr, int port) {
         // Try to set up the server
@@ -175,7 +83,7 @@ public class OnlineTicTacToe {
         Socket client = null;
         try {
             server = new ServerSocket(port);
-            server.setSoTimeout(10000);
+            server.setSoTimeout(INTERVAL);
         } catch (IOException e) {
             // Intentionally caught and allowed to continue.
         }
@@ -205,11 +113,9 @@ public class OnlineTicTacToe {
             }
         }
 
-        makeWindow(); // All of the gui is initialized here.
-
+        makeWindow();
         BufferedReader in = null;
         String input;
-
         try {
             out = new PrintWriter(client.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -237,7 +143,7 @@ public class OnlineTicTacToe {
                     button[Integer.parseInt(input)].setText("X");
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                error(e);
             }
         }
     }
@@ -255,8 +161,8 @@ public class OnlineTicTacToe {
      * Initializes the top drag bar to display the current user.
      */
     private void initBar() {
-        myMark = (host) ? "O" : "X";        // 1st person uses "O"
-        yourMark = (host) ? "X" : "O";      // 2nd person uses "X"
+        myMark = (host) ? "O" : "X";
+        yourMark = (host) ? "X" : "O";
         window = new JFrame("OnlineTicTacToe(" +
                 ((host) ? "server)" : "client)") + myMark);
     }
@@ -385,28 +291,14 @@ public class OnlineTicTacToe {
         }
     }
 
-    // Still in dev...
     /**
-     *  Gets a random number and sends back while marking "X" in the AWT thread.
+     * Prints the output of the stack trace upon a given error
+     * and quits the application.
+     *
+     * @param e an exception.
      */
-    private class Counterpart extends Thread {
-        Counterpart() {
-        }
-        @Override
-        public void run( ) {
-            int myMove = 0;
-            try {
-                Random rand = new Random();
-                BufferedWriter log = new BufferedWriter(new FileWriter("log.txt"));
-                int move = input.readInt();
-                log.write(move);
-                myMove = rand.nextInt(8);
-                output.write(myMove);
-                System.out.println(myMove);
-            } catch (Exception e) {
-                error(e);
-            }
-            button[myMove].setText("X");
-        }
+    private static void error(Exception e) {
+        e.printStackTrace();
+        System.exit(-1);
     }
 }
