@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_distributed-tic-tac-toe" default="compile.module.distributed-tic-tac-toe">
+  <dirname property="module.distributed-tic-tac-toe.basedir" file="/docs/module_distributed-tic-tac-toe.xml"/>
+  
+  <property name="module.jdk.home.distributed-tic-tac-toe" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.distributed-tic-tac-toe" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.distributed-tic-tac-toe" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.distributed-tic-tac-toe" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="distributed-tic-tac-toe.output.dir" value="${module.distributed-tic-tac-toe.basedir}/out/production/Distributed-Tic-Tac-Toe"/>
+  <property name="distributed-tic-tac-toe.testoutput.dir" value="${module.distributed-tic-tac-toe.basedir}/out/test/Distributed-Tic-Tac-Toe"/>
+  
+  <path id="distributed-tic-tac-toe.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="distributed-tic-tac-toe.module.production.classpath">
+    <path refid="${module.jdk.classpath.distributed-tic-tac-toe}"/>
+    <pathelement location="/.idea/jsch-0.1.55.jar"/>
+  </path>
+  
+  <path id="distributed-tic-tac-toe.runtime.production.module.classpath">
+    <pathelement location="${distributed-tic-tac-toe.output.dir}"/>
+    <pathelement location="/.idea/jsch-0.1.55.jar"/>
+  </path>
+  
+  <path id="distributed-tic-tac-toe.module.classpath">
+    <path refid="${module.jdk.classpath.distributed-tic-tac-toe}"/>
+    <pathelement location="${distributed-tic-tac-toe.output.dir}"/>
+    <pathelement location="/.idea/jsch-0.1.55.jar"/>
+  </path>
+  
+  <path id="distributed-tic-tac-toe.runtime.module.classpath">
+    <pathelement location="${distributed-tic-tac-toe.testoutput.dir}"/>
+    <pathelement location="${distributed-tic-tac-toe.output.dir}"/>
+    <pathelement location="/.idea/jsch-0.1.55.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.distributed-tic-tac-toe">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.distributed-tic-tac-toe">
+    <patternset refid="excluded.from.module.distributed-tic-tac-toe"/>
+  </patternset>
+  
+  <path id="distributed-tic-tac-toe.module.sourcepath">
+    <dirset dir="/">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.distributed-tic-tac-toe" depends="compile.module.distributed-tic-tac-toe.production,compile.module.distributed-tic-tac-toe.tests" description="Compile module Distributed-Tic-Tac-Toe"/>
+  
+  <target name="compile.module.distributed-tic-tac-toe.production" depends="register.custom.compilers" description="Compile module Distributed-Tic-Tac-Toe; production classes">
+    <mkdir dir="${distributed-tic-tac-toe.output.dir}"/>
+    <javac2 destdir="${distributed-tic-tac-toe.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.distributed-tic-tac-toe}/javac">
+      <compilerarg line="${compiler.args.distributed-tic-tac-toe}"/>
+      <bootclasspath refid="distributed-tic-tac-toe.module.bootclasspath"/>
+      <classpath refid="distributed-tic-tac-toe.module.production.classpath"/>
+      <src refid="distributed-tic-tac-toe.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.distributed-tic-tac-toe"/>
+    </javac2>
+    
+    <copy todir="${distributed-tic-tac-toe.output.dir}">
+      <fileset dir="/">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.distributed-tic-tac-toe.tests" depends="register.custom.compilers,compile.module.distributed-tic-tac-toe.production" description="compile module Distributed-Tic-Tac-Toe; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.distributed-tic-tac-toe" description="cleanup module">
+    <delete dir="${distributed-tic-tac-toe.output.dir}"/>
+    <delete dir="${distributed-tic-tac-toe.testoutput.dir}"/>
+  </target>
+</project>

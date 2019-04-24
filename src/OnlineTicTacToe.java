@@ -11,62 +11,26 @@ import java.net.UnknownHostException;
  * Christopher Ijams
  * 2019/4/20
  * Online Tic-Tac-Toe game.
- *
+ * <p>
  * This is an online Internet program that involves two users in the same tic-tac-toe game.
  * The users can either play locally or remotely across different servers.
  */
 public class OnlineTicTacToe {
 
-    private final int INTERVAL = 10000;          // Represents 1 second.
-    private final int NBUTTONS = 9;             // represents the 3x3 grid.
-
-    private ObjectInputStream input;            // input from counterpart.
-    private ObjectOutputStream output;          // output from counterpart.
-
-    private PrintWriter out = null;             // wrapper object.
-
     private static String myMark;               // "O" or "X".
     private static String yourMark;             // "X" or "O".
-
+    private final int INTERVAL = 10000;          // Represents 1 second.
+    private final int NBUTTONS = 9;             // represents the 3x3 grid.
+    private ObjectInputStream input;            // input from counterpart.
+    private ObjectOutputStream output;          // output from counterpart.
+    private PrintWriter out = null;             // wrapper object.
     private JFrame window;                      // The tic-tac-toe window.
     private JButton[] button
             = new JButton[NBUTTONS];            // buttons[0] - buttons[9].
     private boolean[] myTurn = new boolean[1];  // T: My turn, F: your turn.
     private boolean host = false;               // Assists in determining who starts
     private boolean p1turn;                     // Assists in keeping track of player turn.
-    /**
-     * Instructs the user on how to invoke the program.
-     */
-    private static void usage() {
-        System.err.println(
-                "Usages: \njava OnlineTicTacToe <ip address> <port> [auto] " +
-                        "\njava OnlineTicTacToe\n");
-        System.exit(-1);
-    }
 
-    /**
-     * Starts the online tic-tac-toe game.
-     * param args[0]: Counterpart's IP address.
-     * param args[1]: Counterpart's Port.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        if (args.length != 2)
-            usage();
-
-        InetAddress addr = null;
-        int port = 0;
-        try {
-            addr = InetAddress.getByName(args[0]);
-            port = Integer.parseInt(args[1]);
-        } catch (UnknownHostException | NumberFormatException e) {
-            error(e);
-        }
-        if (args.length == 2) {
-            new OnlineTicTacToe(addr, port);
-        }
-    }
     /**
      * Two player version of the game. Non-blocking attempt to create a server.
      * Peer to peer, program does no care which instance is the server and which
@@ -149,6 +113,51 @@ public class OnlineTicTacToe {
     }
 
     /**
+     * Instructs the user on how to invoke the program.
+     */
+    private static void usage() {
+        System.err.println(
+                "Usages: \njava OnlineTicTacToe <ip address> <port> [auto] " +
+                        "\njava OnlineTicTacToe\n");
+        System.exit(-1);
+    }
+
+    /**
+     * Starts the online tic-tac-toe game.
+     * param args[0]: Counterpart's IP address.
+     * param args[1]: Counterpart's Port.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        if (args.length != 2)
+            usage();
+
+        InetAddress addr = null;
+        int port = 0;
+        try {
+            addr = InetAddress.getByName(args[0]);
+            port = Integer.parseInt(args[1]);
+        } catch (UnknownHostException | NumberFormatException e) {
+            error(e);
+        }
+        if (args.length == 2) {
+            new OnlineTicTacToe(addr, port);
+        }
+    }
+
+    /**
+     * Prints the output of the stack trace upon a given error
+     * and quits the application.
+     *
+     * @param e an exception.
+     */
+    private static void error(Exception e) {
+        e.printStackTrace();
+        System.exit(-1);
+    }
+
+    /**
      * Initializes and sets up the GUI, buttons, and actionListener.
      */
     private void makeWindow() {
@@ -224,6 +233,7 @@ public class OnlineTicTacToe {
 
     /**
      * Pop up to tell the players of the game who has won.
+     *
      * @param mark
      */
     private void showWon(String mark) {
@@ -281,6 +291,7 @@ public class OnlineTicTacToe {
         /**
          * Checks to see if there is a column, row, or diagonal line that
          * satisfies the criteria of win condition.
+         *
          * @param CheckIfWin
          */
         private void test(String CheckIfWin) {
@@ -289,16 +300,5 @@ public class OnlineTicTacToe {
             if (CheckIfWin.equals("OOO"))
                 showWon("O");
         }
-    }
-
-    /**
-     * Prints the output of the stack trace upon a given error
-     * and quits the application.
-     *
-     * @param e an exception.
-     */
-    private static void error(Exception e) {
-        e.printStackTrace();
-        System.exit(-1);
     }
 }

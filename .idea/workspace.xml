@@ -2,6 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb3f98c9-1789-4141-a3b4-1c80ed8abcc4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerCodeExamples/EchoCS.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerCodeExamples/EchoClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerCodeExamples/EchoServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerCodeExamples/text" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/Connection$MyUserInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/Connection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe$checkWinCondition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe$checkWinCondition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Distributed-Tic-Tac-Toe/OnlineTicTacToe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Connection.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OnlineTicTacToe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OnlineTicTacToe.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,8 +33,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="310">
-                  <caret line="293" column="5" lean-forward="true" selection-start-line="293" selection-start-column="5" selection-end-line="293" selection-end-column="5" />
+                <state relative-caret-position="220">
+                  <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -30,24 +42,25 @@
               </provider>
             </entry>
           </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/index-files/index-1.html">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Distributed-Tic-Tac-Toe.iml">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
         </leaf>
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ServerCodeExamples/text">
+            <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="20">
-                  <caret line="138" column="33" selection-start-line="138" selection-start-column="33" selection-end-line="138" selection-end-column="33" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ServerCodeExamples/EchoCS.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="440">
-                  <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+                <state relative-caret-position="308">
+                  <caret line="293" column="10" selection-start-line="293" selection-start-column="10" selection-end-line="293" selection-end-column="10" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -74,6 +87,7 @@
       <find>myuser</find>
       <find>counterpart</find>
       <find>button</find>
+      <find>10000</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -117,12 +131,11 @@
             <path>
               <item name="Distributed-Tic-Tac-Toe" type="b2602c69:ProjectViewProjectNode" />
               <item name="Distributed-Tic-Tac-Toe" type="462c0819:PsiDirectoryNode" />
-              <item name="ServerCodeExamples" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Distributed-Tic-Tac-Toe" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Distributed-Tic-Tac-Toe" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -131,22 +144,28 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="distributed-tic-tac-toe" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea/jsch-0.1.55.jar!/" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="copyright" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\A09\Documents\GitHub\Distributed-Tic-Tac-Toe" />
+      <recent name="C:\Users\A09\Documents\GitHub\Distributed-Tic-Tac-Toe\docs" />
       <recent name="C:\Users\Chris\Documents\GitHub\Distributed-Tic-Tac-Toe\src" />
       <recent name="C:\Users\Chris\Documents\GitHub\Distributed-Tic-Tac-Toe\ServerCodeExamples" />
       <recent name="C:\Users\Chris\Documents\GitHub\Distributed-Tic-Tac-Toe" />
-      <recent name="C:\Users\Chris\Documents\GitHub\Distributed-Tic-Tac-Toe\.idea" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -210,7 +229,7 @@
     <frame x="-7" y="-7" width="1477" height="797" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2646024" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22237861" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -218,8 +237,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32982457" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.49025488" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32833582" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2413793" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39939332" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -239,15 +258,9 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Distributed-Tic-Tac-Toe.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_73/src.zip!/java/lang/Runnable.java" />
-    <entry file="file://$PROJECT_DIR$/log.txt" />
+    <entry file="file://$PROJECT_DIR$/docs/log.txt" />
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="327">
@@ -296,10 +309,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_111/src.zip!/java/net/SocketInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="214" column="7" lean-forward="true" selection-start-line="214" selection-start-column="7" selection-end-line="214" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index-files/index-1.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Distributed-Tic-Tac-Toe.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/OnlineTicTacToe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="293" column="5" lean-forward="true" selection-start-line="293" selection-start-column="5" selection-end-line="293" selection-end-column="5" />
+        <state relative-caret-position="220">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
